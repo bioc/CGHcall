@@ -39,7 +39,8 @@ preprocess <- function(input, type="file", maxmiss=30, nchrom=22, ...) {
     filter      <- apply(matrixData, 1, countMissing, allowed);
     infoData    <- infoData[filter,];
     matrixData  <- matrixData[filter,];
-    
+    matrixData  <- as.matrix(matrixData);
+        
     ## Impute data using impute.knn from package 'impute'
     if (!exists("k")) k <- 10
     new.k       <- ceiling((1 - maxmiss / 100) * ncol(matrixData))
