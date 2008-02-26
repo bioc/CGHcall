@@ -134,8 +134,14 @@ CGHcall <- function(inputNormalized, inputSegmented, typeNormalized="dataframe",
     dataprob        <- data.frame(naam, chr, posit)
 
     for (k in (1:nc)) {
-        post        <- (posteriorfin2[profile==k,])[,-1]
-        regionsk    <- (regionsprof[profile==k,])[,-1]
+        post        <- (posteriorfin2[profile==k,, drop=FALSE])[,-1]
+        if (class(post) != "matrix") {
+            post <- t(as.matrix(post))
+        }
+        regionsk    <- (regionsprof[profile==k,, drop=FALSE])[,-1]
+        if (class(regionsk) != "matrix") {
+            regionsk <- t(as.matrix(regionsk))
+        }
         nregk       <- nrow(post)
         probs       <- c()
         for (i in (1:nregk)) {
