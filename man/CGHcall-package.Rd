@@ -12,15 +12,15 @@ Visualization of profiles is also provided.
 	\tabular{ll}{
 	Package: \tab CGHcall\cr
 	Type: \tab Package\cr
-	Version: \tab 2.9.5\cr
-	Date: \tab 2012-04-17\cr
+	Version: \tab 2.34.1\cr
+	Date: \tab 2016-09-12\cr
 	License: \tab GPL\cr
 	}
 }
 \author{
 Sjoerd Vosse and Mark van de Wiel
 
-Maintainer: Sjoerd Vosse <s.vosse@vumc.nl>
+Maintainer: Mark van de Wiel <mark.vdwiel@vumc.nl>
 }
 \references{
   Mark A. van de Wiel, Kyung In Kim, Sjoerd J. Vosse, Wessel N. van Wieringen, Saskia M. Wilting and Bauke Ylstra. CGHcall: calling aberrations for array CGH tumor profiles. \emph{Bioinformatics, 23}, 892-894.
