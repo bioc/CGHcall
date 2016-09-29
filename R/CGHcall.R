@@ -178,6 +178,7 @@ CGHcall <- function(inputSegmented, prior="auto", nclass=5, organism="human",cel
     mus         <- c(-0.10-exp(-bstart[2])-0.3 - exp(-bstart[1]), -0.10-exp(-bstart[2]), -0.05+0.1*exp(-(bstart[3])^2), 0.1 + exp(-bstart[4]), 2*(0.10 + exp(-bstart[4]))+0.3+exp(-bstart[5]))
     priorp      <- matrix(rep(c(0.01, 0.09, 0.8, 0.08, 0.01, 0.01), nreg), ncol=6, byrow=TRUE)
     alpha0      <- CGHcall:::.alpha0all(nreg, profchrom, priorp, bstart, varprofall, allsum, allsumsq, allnc,robustsig,allcell,prior)
+    alpha0 <- alpha0 + 10^(-30)  #added 12/9/2016 to improve num stability
     
     maxiter     <- 10
     stop        <- 0
@@ -219,6 +220,7 @@ CGHcall <- function(inputSegmented, prior="auto", nclass=5, organism="human",cel
         bprev       <- bstart
         bstart      <- optres$par       
         alpha0      <- CGHcall:::.alpha0all(nreg, profchrom, alpha0, bstart, varprofall, allsum, allsumsq, allnc, robustsig,allcell, prior)
+        alpha0 <- alpha0 + 10^(-30)  #added 12/9/2016 to improve num stability
         rl          <- CGHcall:::.reallik4(nreg, alpha0, bstart, varprofall, allsum, allsumsq, allnc, robustsig,allcell)
        
         llmin       <- optres$value
@@ -280,7 +282,7 @@ CGHcall <- function(inputSegmented, prior="auto", nclass=5, organism="human",cel
     } 
     alpha0_all     <- CGHcall:::.alpha0all(nregall, profchromall, alpha0_all, bstart, varprof_allall, allsumall, allsumsqall, allncall, robustsig,allcellall, prior)
     } else alpha0_all <- matrix(rep(alpha0[1,],nregall),byrow=T,nrow=nregall)
-    
+    alpha0_all <- alpha0_all + 10^(-30) #added 12/9/2016 to improve num stability
     posteriorfin    <- t(sapply(1:nregall, CGHcall:::.posteriorp, priorp=alpha0_all, pm=best, varprofall=varprof_allall, allsum=allsumall, allsumsq=allsumsqall, allnc=allncall, allcell=allcellall, robustsig=robustsig))
     
     overrule <- function(id,mnall){
